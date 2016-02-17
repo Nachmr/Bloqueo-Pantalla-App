@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Bloqueo Pantalla</string>
+    <string name="hello_world"> </string>
+    <string name="device_admin_not_enabled">La aplicacion no tiene permisos suficientes. Vaya a ajustes > seguridad > administradores de dispositivos y seleccionela</string>
+    <string name="device_admin_description">Bloquea la pantalla acercanto un objeto al telefono</string>
+    <string name="admin_receiver_status_enabled">La app Bloqueo Pantalla fue añadida</string>
+    <string name="admin_receiver_status_disabled">La app Bloqueo Pantalla fue eliminada</string>
+
+</resources>

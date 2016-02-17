@@ -1,0 +1,163 @@
+\input{preambuloSimple.tex}
+
+%----------------------------------------------------------------------------------------
+%	TÍTULO Y DATOS DEL ALUMNO
+%----------------------------------------------------------------------------------------
+
+\title{	
+\normalfont \normalsize 
+\textsc{{\bf Nuevos Paradigmas de Interacción (2015-2016)} \\ Grado en Ingeniería Informática \\ Universidad de Granada} \\ [25pt] % Your university, school and/or department name(s)
+\horrule{0.5pt} \\[0.4cm] % Thin top horizontal rule
+\huge Tutorial appMoveMvl \\ % The assignment title
+\horrule{2pt} \\[0.5cm] % Thick bottom horizontal rule
+}
+
+\author{Pedro Antonio Ruiz Cuesta\\
+Ignacio Martín Requena} % Nombre y apellidos
+
+\date{\normalsize\today} % Incluye la fecha actual
+
+%----------------------------------------------------------------------------------------
+% DOCUMENTO
+%----------------------------------------------------------------------------------------
+
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{color}
+\definecolor{gray97}{gray}{.97}
+\definecolor{gray75}{gray}{.75}
+\definecolor{gray45}{gray}{.45}
+
+\lstset{ frame=Ltb,
+     framerule=0pt,
+     aboveskip=0.1cm,
+     framextopmargin=3pt,
+     framexbottommargin=3pt,
+     framexleftmargin=0.2cm,
+     framesep=0pt,
+     rulesep=.2pt,
+     backgroundcolor=\color{gray97},
+     rulesepcolor=\color{black},
+     %
+     stringstyle=\ttfamily,
+     showstringspaces = false,
+     basicstyle=\small\ttfamily,
+     commentstyle=\color{gray45},
+     keywordstyle=\bfseries,
+     %
+     numbers=left,
+     numbersep=15pt,
+     numberstyle=\tiny,
+     numberfirstline = false,
+     breaklines=true,
+   }
+ 
+
+
+\lstdefinestyle{consola}
+   {basicstyle=\scriptsize\bf\ttfamily,
+    backgroundcolor=\color{gray75},
+   }
+ 
+\lstdefinestyle{C}
+   {language=C,
+   }
+
+
+\begin{document}
+
+\maketitle % Muestra el Título
+
+\newpage %inserta un salto de página
+
+\tableofcontents % para generar el índice de contenidos
+
+\listoffigures
+
+\newpage
+
+
+%----------------------------------------------------------------------------------------
+%	Introducción
+%----------------------------------------------------------------------------------------
+\section{Introducción}
+En este tutorial veremos como hemos desarrollado una app para detectar cuando el sensor de proximidad detecta que un objeto está próximo al terminal.
+
+
+%----------------------------------------------------------------------------------------
+%	Descripción
+%----------------------------------------------------------------------------------------
+\section{Descripción}
+Esta aplicación consta de tres activitis el bloqueo de pantalla (la principal), el bloqueo pantalla eventos (recive eventos y los pone en los listeners adecuados), el bloqueo panralla llamada (para gestionar el desbloqueo del terminal cuando se produce una llamada) y el bloqueo pantalla permisos (para gestionar los permisos que se le dan a la aplicación).
+
+%----------------------------------------------------------------------------------------
+%	Desarrollo
+%----------------------------------------------------------------------------------------
+\section{Desarrollo}
+Para el desarrollo de nuestra app utilizaremos el IDE Android Studio.\\
+
+Para la parte de la lectura del código hemos utilizado la librería SensorEventListener que nos permite acceder a la información recogida por el sensor de posición.\\
+
+\subsection{Iniciando el proyecto}
+Lo primero que vamos a hacer es crear un nuevo proyecto en android studio, elegiremos que nos cree un proyecto vacío con el nombre Main Activity.
+
+
+Una vez creado el proyecto solo quedaría modelar la interfaz de usuario y determinar el código fuente de nuestro programa.
+
+\subsection{Determinación de la proximidad de un objeto al terminal}
+El código de nuestra app que determina si el terminal esta boca abajo es:
+
+\begin{lstlisting}[language=Java]
+/**
+* Metodo que evalua el estado del sensor
+* @param event
+*/
+@Override
+public void onSensorChanged(SensorEvent event) {
+  if (event.values[0] == 0)
+    turnScreenOffAndExit();
+}
+\end{lstlisting}
+
+Si el valor de event.values[0] es 0 quiere decir que el sensor de proximidad ha detectado que hay un objeto, así que llamamos a la función para bloquear el terminal.
+
+\subsection{Bloqueo del terminal}
+
+\begin{lstlisting}[language=Java]
+/**
+* Metodo principal que apaga la pantalla y sale de la app
+*/
+private void turnScreenOffAndExit() {
+  // Bloqueamos la mantalla
+  turnScreenOff(getApplicationContext());
+	
+  // Hacemos vibrar el movil
+  ((Vibrator) getSystemService(Context.VIBRATOR_SERVICE)).vibrate(50);
+	
+  final Activity activity = this;
+  Thread t = new Thread() {
+    public void run() {
+      try {
+        sleep(500);
+      } catch (InterruptedException e) { }
+      activity.finish();
+    }
+  };
+  t.start();
+}
+\end{lstlisting}
+
+El procedimiento seguido es apagar la pantalla, hacer vibrar el terminal y crear una hebra y dormirla un tiempo determinado.
+
+\section{Librerias externas usadas}
+\begin{itemize}
+	\item \textbf{Para detección de posición}: Sensor, SensorEvent, SensorEventListener, SensorManager
+	\item \textbf{Para reproducir sonido}: MediaPlayer
+	\item \textbf{Para la vibracion}: Vibrator
+	\item \textbf{Material usado para saber como bloquear terminal:} \url{https://github.com/Joisar/LockScreenApp}
+		
+\end{itemize}
+%\bibliography{citas} %archivo citas.bib que contiene las entradas 
+\bibliographystyle{plain} % hay varias formas de citar
+
+\end{document}

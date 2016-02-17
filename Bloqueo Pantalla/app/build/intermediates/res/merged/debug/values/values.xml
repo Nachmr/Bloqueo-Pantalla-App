@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/D:/Ignacio/hubiC/Informatica/Carrera/Cuarto/1cuatrimestre/NPI/APP%20Android/Bloqueo%20Pantalla/app/src/main/res/values/dimens.xml -->
+    <eat-comment/>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <!-- From: file:/D:/Ignacio/hubiC/Informatica/Carrera/Cuarto/1cuatrimestre/NPI/APP%20Android/Bloqueo%20Pantalla/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="admin_receiver_status_disabled">La app Bloqueo Pantalla fue eliminada</string>
+    <string name="admin_receiver_status_enabled">La app Bloqueo Pantalla fue añadida</string>
+    <string name="app_name">Bloqueo Pantalla</string>
+    <string name="device_admin_description">Bloquea la pantalla acercanto un objeto al telefono</string>
+    <string name="device_admin_not_enabled">La aplicacion no tiene permisos suficientes. Vaya a ajustes > seguridad > administradores de dispositivos y seleccionela</string>
+    <string name="hello_world"> </string>
+    <!-- From: file:/D:/Ignacio/hubiC/Informatica/Carrera/Cuarto/1cuatrimestre/NPI/APP%20Android/Bloqueo%20Pantalla/app/src/main/res/values/styles.xml -->
+    <eat-comment/>
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+    </style>
+    <style name="AppTheme" parent="AppBaseTheme">
+    </style>
+</resources>
